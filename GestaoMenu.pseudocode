@@ -1,4 +1,3 @@
-
 importar GestaoEmpresa como x
 
 modelo Menu:
@@ -75,3 +74,28 @@ modelo Menu:
         se opcao == d:
           entrada('Indique uma nova descrição para o produto {Menu.items[id].nome}: ', Menu.items[id].descricao)
 
+
+funcao eliminarItem():    #Se conseguirem podem fazer uma review a isto a ver se está ok?
+    entrada('Indique o ID do item a remover do menu: ', remover)
+    buffer = ()
+    para cada i em Menu.items[i]:
+      se Menu.items[id] != remover:
+        buffer.adicionar[Menu.items[id]]
+      Menu.items() = buffer
+
+--------------------------------
+
+funcao criarItem():
+  entrada('Indique o nome do item a adicionar ao menu: ', nvnome)
+  se nvnome não está em Menu.items[id].nome:
+    id = Menu.items.chaves().tamanho() + 1
+    Menu.items[id].nome = nvnome
+
+    entrada ('Indique o preço para {nome}: ', menu.Item[id].preço) 
+    entrada ('Indique a categoria de {nome}: ', menu.Item[id].categoria)
+    entrada ('Adicione uma descrição para o {nome}', menu.Item[id].descricao)
+
+    imprime('{nome} adicionado ao menu.')
+    imprime(menu.Item[id])
+  senao:
+    imprime('Item já existente em menu.')
