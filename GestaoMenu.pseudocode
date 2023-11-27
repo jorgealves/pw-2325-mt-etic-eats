@@ -1,3 +1,44 @@
+
+importar GestaoEmpresa como x
+
+modelo Menu:
+  contrutor ():       
+    Menu.items=(
+      'id' ->  (
+        'nome' -> '',
+        'preço' -> '0.00',
+        'categoria' -> '',
+        'descricao' -> ''
+      )
+    )
+
+  funcao showMenu()
+    imprime("=====================================")
+    imprime("=====================================")
+    imprime("               GESTÃO                ")
+    imprime("                MENU                 ")
+    imprime("=====================================")
+    imprime("=====================================")
+    imprime("a) Listar Menu")
+    imprime("b) Adicionar novo item")
+    imprime("c) Editar item existente")
+    imprime("c) Eliminar item existente")
+    imprime("q) Quit")
+    
+    entrada("Selecione uma opção: ", key)
+    
+    se key == a:
+      listarMenu()
+    se key == b:
+      criarItem()
+    se key == c:
+      editarItem()
+    se key == d:
+      eliminarItem()
+    senao key == q:
+      imprime("O programa fechou com sucesso.")
+      retorna
+
   funcao listarMenu()
     para cada chave em Menu.Items:
       para cada chave, valor em id:
@@ -33,3 +74,4 @@
       
         se opcao == d:
           entrada('Indique uma nova descrição para o produto {Menu.items[id].nome}: ', Menu.items[id].descricao)
+
