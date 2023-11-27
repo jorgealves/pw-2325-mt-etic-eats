@@ -90,3 +90,78 @@ modelo GestaoPedidos:
       senao key == d: 
         displayMenu()
 
+funcao acceptOrder(order):
+    saveOrderDataTemp(order)
+ 
+ funcao listOrders(status): 
+    se status == 0:
+      index = 0
+
+      imprime("Lista de Orders corrente: ")
+      cada elemento GestaoPedidos.orders.chaves()
+        se GestaoPedidos.orders[elemento].status == status
+          imprime(GestaoPedidos.orders[elemento])
+          index++
+
+      se index > 0
+        displayNewOrderMenu()
+        entrada("Selecione uma opção: ", key)
+        se key == a:
+          entrada("Selecione uma order: ", order)
+          acceptOrder(order)
+        se key == b:
+          entrada("Selecione uma order: ", order)
+          rejectOrder(order)
+        se key == q:
+          retorna
+
+    se status == 1:
+      imprime("Lista de todas as Orders: ")
+      cada elemento GestaoPedidos.orders.chaves()
+          imprime(GestaoPedidos.orders[elemento])
+      
+    se status == 4:
+      index = 0
+      imprime("Lista de Orders correntes: ")
+      cada elemento GestaoPedidos.orders.chaves()
+        se GestaoPedidos.orders[elemento].status != 4 && GestaoPedidos.orders[elemento].status != 5
+          imprime(GestaoPedidos.orders[elemento])
+          index++
+
+      se index > 0
+        displayOrderMenu()
+        entrada("Selecione uma opção: ", key)
+        se key == a:
+          entrada("Selecione uma order: ", order)
+          editOrderStatus(order)
+        se key == q:
+          retorna
+
+
+funcao editOrderStatus(order):
+    se GestaoPedidos.orderTemp[order] != null:
+      entrada("Insira o novo status: ", status)
+      se status == 4:
+        GestaoPedidos.orderTemp[order] = status
+        GestaoPedidos.orders[order] = GestaoPedidos.orderTemp[order]
+        GestaoPedidos.orderTemp[order] = null
+      senao: 
+        GestaoPedidos.orderTemp[order] = status 
+    senao: 
+      imprime("Pedido inexistente!")
+
+
+
+funcao rejectOrder(order):
+    GestaoPedidos.orders[order].status = 5
+
+  funcao saveOrderDataTemp(order):
+    GestaoPedidos.orderTemp[order].comprador = GestaoPedidos.orders[order].comprador            #Registar na order o id do comprador enviado    
+    GestaoPedidos.orderTemp[order].items = GestaoPedidos.orders[order].items                    #Registar na order a lista de ids do items enviado como argumento na 
+    GestaoPedidos.orderTemp[order].custoTotal = GestaoPedidos.orders[order].custoTotal          #Adicionar ao registo da order cada elemento do conjunto de items na compra
+    GestaoPedidos.orderTemp[order].comprador = GestaoPedidos.orders[order].comprador
+    GestaoPedidos.orderTemp[order].status = 1                                                   #Registar na order o status como pedido aceite que é 1
+
+
+funcao getOrders()
+  retorna GestaoPedidos.orders
