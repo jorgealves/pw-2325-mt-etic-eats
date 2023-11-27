@@ -1,0 +1,64 @@
+importar GestaoPedidos como gestaoPedidos
+
+/* ----------- Data Base -----------  */
+
+modelo User:
+  construtor(nome, apelido, email, contacto, morada, password, nomeEmpresa, contactoEmpresa, moradaEmpresa, StatusAberto)
+    User.Nome = nome
+    User.Apelido = apelido
+    User.NomeEmpresa = nomeEmpresa
+    User.Email = email
+    User.Contacto = contacto
+    User.ContactoEmpresa = contactoEmpresa
+    User.Morada = morada
+    User.MoradaEmpresa = moradaEmpresa
+    User.Password = password
+    User.StatusAberto = falso
+    User.DescricaoEmpresa = descricaoEmpresa         #tipo uma "Bio" do Restaurante #É para adicionar a uma das opções?
+    User.Menu = []        
+    User.AccountStatus = true 
+
+#adicionando info vinda de Front office
+#Não, este modelo User é o da pessoa que é dona da conta da Empresa dentro do ETIC_Eats
+#Construtor Empresa contactanadoandada dentro de User para evitar confusões
+
+/* ---------- Funcoes -------------*/
+
+/* Menu "Gestão de Empresa" */
+
+funcao showMenu():
+  enquanto key != q
+    imprime("""
+      =========Utilizador========
+      nome: {User.Nome}, {user.Apelido}
+      Email: {User.Email}
+      Contacto: {User.Telemovel}
+      Morada: {User.Morada}
+      =========Restaurante========
+      Nome: {Empresa.Nome}
+      Telefone: {Empresa.Telefone}
+      Morada: {Empresa.Morada}
+      Descrição: {Descrição.Empresa}
+      =============Opções=========
+      a - Editar Informação
+      b - Abrir/Fechar loja
+      c - Aceder Histórico
+      d - Eliminar Conta
+      q - Sair
+      """)
+
+    se key == a:
+      listaInfoEdit()
+
+    se key == b:
+      AlterarStatus()
+      imprime("A loja está aberta: {User.StatusAberto}")
+
+    se key == c:
+      gestaoPedidos.getOrders()
+
+    se key == d:
+      desativarConta()
+
+    senao key == q:
+      retorna
